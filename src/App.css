@@ -28,3 +28,7 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.covered{
+  background-color: rgb(9, 46, 25);
+}

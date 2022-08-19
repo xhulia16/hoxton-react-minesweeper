@@ -90,6 +90,20 @@ function App() {
     placeMines()
   }, [])
 
+  function clickCells(rowIndex, cellIndex){
+    let copyBoard=structuredClone(board)
+    copyBoard[rowIndex][cellIndex].covered=false
+    setBoard(copyBoard)
+
+ 
+  }
+
+function loseGame(rowIndex, cellIndex){
+    if(board[rowIndex][cellIndex].value==="💣"){
+      alert("YOU LOST")
+    }
+  }
+
 
 function placeMines(){
   let copyBoard=structuredClone(board)
@@ -113,7 +127,13 @@ else
         {board.map((item, rowIndex)=>(
           item.map((cell, cellIndex)=>(
            <div 
-          className="box">{cell.value}</div>
+           onClick={()=> {
+            clickCells(rowIndex, cellIndex)
+            loseGame(rowIndex, cellIndex)
+           }}
+          className={ `box ${cell.covered? 'covered': ''}`}>
+            {cell.covered ? null: cell.value}
+            </div>
           ))
         ))}
         {/* <button onClick={placeMines}>Generate Game</button> */}
