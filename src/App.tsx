@@ -85,6 +85,8 @@ function App() {
       { value: '',  covered: true }
     ]  
   ])
+  const [clicked, setClicked]=useState(0)
+  const [lose, setLose]=useState(false)
 
   useEffect(()=>{
     placeMines()
@@ -104,13 +106,17 @@ function loseGame(rowIndex, cellIndex){
     }
   }
 
+ 
+    if(clicked===54 && lose===false){
+      alert('YOU WON')
+    }
+
 
 function placeMines(){
   let copyBoard=structuredClone(board)
 for(let i=0; i<10; i++){
   let minePlacementX=Math.floor(Math.random() * board.length) 
   let minePlacementY=Math.floor(Math.random() * board[0].length ) 
-  console.log(copyBoard[minePlacementX][minePlacementY].value)
 if(copyBoard[minePlacementX][minePlacementY].value==="💣"){
   placeMines()
 }
@@ -130,18 +136,11 @@ else{
 
 for (let j=0; j<indexes.length; j++){
   const[xIndex, yIndex]=indexes[j]
-if(xIndex>=0 && xIndex<8 && yIndex>=0 && yIndex<8 ){
+if(xIndex>=0 && xIndex<8 && yIndex>=0 && yIndex<8){
+  if(copyBoard[xIndex][yIndex].value !== "💣")
   copyBoard[xIndex][yIndex].value= 1
 }
 }
-  // copyBoard[minePlacementX+1][minePlacementY].value= 1
-  // copyBoard[minePlacementX-1][minePlacementY].value= 1
-  // copyBoard[minePlacementX-1][minePlacementY-1].value= 1
-  // copyBoard[minePlacementX-1][minePlacementY+1].value= 1
-  // copyBoard[minePlacementX][minePlacementY+1].value= 1
-  // copyBoard[minePlacementX][minePlacementY-1].value= 1
-  // copyBoard[minePlacementX+1][minePlacementY-1].value= 1
-  // copyBoard[minePlacementX+1][minePlacementY+1].value= 1
 
   setBoard(copyBoard)
 
@@ -160,6 +159,7 @@ if(xIndex>=0 && xIndex<8 && yIndex>=0 && yIndex<8 ){
            onClick={()=> {
             clickCells(rowIndex, cellIndex)
             loseGame(rowIndex, cellIndex)
+            setClicked(clicked+1)
            }}
           className={ `box ${cell.covered? 'covered': ''}`}>
             {cell.covered ? null: cell.value}
