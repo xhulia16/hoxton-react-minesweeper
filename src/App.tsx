@@ -114,9 +114,39 @@ for(let i=0; i<10; i++){
 if(copyBoard[minePlacementX][minePlacementY].value==="💣"){
   placeMines()
 }
-else
+else{
   copyBoard[minePlacementX][minePlacementY].value="💣"
+
+  let indexes=[
+    [minePlacementX+1, minePlacementY],
+    [minePlacementX-1, minePlacementY],
+    [minePlacementX-1, minePlacementY-1],
+    [minePlacementX-1, minePlacementY+1],
+    [minePlacementX, minePlacementY-1],
+    [minePlacementX, minePlacementY+1],
+    [minePlacementX+1, minePlacementY-1],
+    [minePlacementX+1, minePlacementY+1]
+  ]
+
+for (let j=0; j<indexes.length; j++){
+  const[xIndex, yIndex]=indexes[j]
+if(xIndex>=0 && xIndex<8 && yIndex>=0 && yIndex<8 ){
+  copyBoard[xIndex][yIndex].value= 1
+}
+}
+  // copyBoard[minePlacementX+1][minePlacementY].value= 1
+  // copyBoard[minePlacementX-1][minePlacementY].value= 1
+  // copyBoard[minePlacementX-1][minePlacementY-1].value= 1
+  // copyBoard[minePlacementX-1][minePlacementY+1].value= 1
+  // copyBoard[minePlacementX][minePlacementY+1].value= 1
+  // copyBoard[minePlacementX][minePlacementY-1].value= 1
+  // copyBoard[minePlacementX+1][minePlacementY-1].value= 1
+  // copyBoard[minePlacementX+1][minePlacementY+1].value= 1
+
   setBoard(copyBoard)
+
+}
+
 }}
 
   return (
